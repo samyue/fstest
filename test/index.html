@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-au" lang="en-au">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	
+	<title>JQuery Programming Test</title>
+	
+	<script src="js/jquery-1.8.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/jquery-ui-1.10.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<link rel='stylesheet' media='screen,projection' type='text/css' href='http://resources2.news.com.au/cs/foxsports/css/skin.css' />
+	
+	<link rel="stylesheet" href="css/style.css" type="text/css" media="screen,projection" title="no title" charset="utf-8" />
+
+	<!-- 
+	************************************
+	PUT YOUR CODE IN THE TAGS BELOW HERE
+	************************************
+	-->
+	<style type="text/css">
+		.module-content {
+			position: relative;
+		}
+
+		.module-content .hover-text {
+			position: absolute;
+			height: 100%;
+			padding: 23px 13px;
+			top: 0;
+			left: 0;
+			background-color: rgb(34, 67, 118);
+			background-color: rgba(34, 67, 118, 0.8);
+			
+		}
+
+		.module-content .hover-text p {
+			font-size: 23px;
+			font-weight: bold;
+			color: white;
+		}
+	
+	</style>
+	
+		
+	<script type="text/javascript" charset="utf-8">
+
+		(function() {
+			'use strict';
+
+			window.app = window.app || {};
+			window.app.module = window.app.module || {};
+
+			//Image Hover module
+			window.app.module.imageHover = {
+				init: function() {
+					var description = $('.image-hover-module .hover-text');
+					description.hide(0);
+					var imageHoverContent = $('.image-hover-module .module-content');
+					imageHoverContent.on('mouseover', function(){
+						console.log('over');
+						description.show();
+					});
+					imageHoverContent.on('mouseout', function(){
+						console.log('out');
+						description.hide();
+					});
+				}
+
+			};
+
+
+			//JSON module
+			window.app.module.json = {
+				init: function() {
+					$.getJSON("test-feed.json", function(data){
+						console.log('data:', data);
+						var players = data.players;
+						if (players) {
+							var items = [];
+							var length = players.length;
+
+							for (var i = 0; i < length; i++) {
+								var player = players[i];
+								items.push('<tr><td>' + player.player + '</td>' 
+									+ '<td>' + player.matches + '</td>'
+									+ '<td>' + player.tries) + '</td></tr>';
+							};
+							var html = '<table> <tr><th>Player</th><th>Matches</th><th>Tries</th></tr>'
+								+ items.join('')
+								+ '</table>'; 
+
+							var moduleContent = $('.json-module .module-content');
+							moduleContent.html(html);
+
+
+						}
+
+
+					});
+				}
+
+			};
+
+
+		}());
+
+		
+
+		$(document).ready(function(){
+
+			app.module.json.init();
+			app.module.imageHover.init();
+			
+
+		});
+		
+	</script>
+	
+	<!-- 
+	***********************************************
+	YOU SHOULDN'T TOUCH ANYTHING BELOW THIS POINT
+	***********************************************
+	-->
+</head>
+<body class="foxsports homepage has-js chrome windows mm-desktop">
+	<div id="wrapper">
+		<div id="network-bar"></div>
+		<div id="header">
+			<div id="header-content">
+				<div id="header-logo">
+					<h1>
+						<a href="http://www.foxsports.com.au">FOX</a>
+					</h1>
+				</div>	<!-- // #header-logo -->
+			</div>	<!-- // #header content top-->
+		</div>
+		<div id="page">
+			<div id="content" class="no-title">
+				<div id="content-1">
+					<h1>Read me for instructions</h1>
+					<div class="instructions">
+						<p>Welcome to the FoxSports.com.au front-end JQuery test. In this test, we are looking at your ability to write elegant, efficient and semantically correct code (JS, XHTML and CSS) that is compatible with the latest public versions of Firefox, Google Chrome and Safari, as well as Internet Explorer 8 and 9. Please also be aware that Chrome can't deal with local json files, so part 2 won't work in Chrome (unless you are running it through a local webserver).</p>
+
+						<p>There are 2 parts to this test:</p>
+						<ul>
+							<li>The image-hover-module</li>
+							<li>The json-module</li>
+						</ul>
+						
+						<p>For the image hover module, when the page loads, it should look like: </p>
+						<a href="example1.1.jpg"><img src="example1.1.jpg" alt="example1.1.jpg" /></a>
+						<p>When the user hovers over the image, the "hover-text" div should display with white text on a blue transparent background, over the image - like this:</p>
+						<a href="example1.2.jpg"><img src="example1.2.jpg" alt="example1.2.jpg" /></a>
+						<p>When the mouse leaves the image/hover-text, it should go back to just the image displaying.</p>
+
+						<p>For the json-module, there is a json file in this zip called <a href="test-feed.json">test-feed.json</a> that should be parsed into markup, using a table like this:</p>
+						<a href="example2.jpg"><img src="example2.jpg" alt="example2" /></a>
+						<p>For the record, the border color in the table is #eee.</p>
+
+						<p>While it is obviously not best practice usually, for the sake of this test, please just do your CSS and javascript inline (in the provided &lt;script&gt; and &lt;style&gt; tags in the &lt;head&gt; and don't touch the style.css file included on the page) - this will make it much easier to see your work. You shouldn't have to use any external jquery plugins for these 2 tasks.</p>
+
+						<p>The jquery library version 1.8 is included in the page already.</p>
+					</div>
+
+					<h1>Test modules below this point</h1>
+					<div class="module image-hover-module">
+						<div class="module-header">
+							<h3 class="header">Image Hover Module</h3>
+						</div>
+						<div class="module-border">
+							<div class="module-content">
+								<img src="img-thumbnail.jpg" alt="Image Thumbnail" />
+								<div class="hover-text">
+									<p>This is a description that should show over the image on hover, but never show at any other time.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="module json-module">
+						<div class="module-header">
+							<h3 class="header">JSON Module</h3>
+						</div>
+						<div class="module-border">
+							<div class="module-content">
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
